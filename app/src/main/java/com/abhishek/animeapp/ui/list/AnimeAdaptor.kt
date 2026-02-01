@@ -90,14 +90,15 @@ class AnimeAdapter(
             episodes.text = "Episodes: ${anime.episodes ?: "N/A"}"
             rating.text = "Rating: ${anime.rating ?: "N/A"}"
 
-            if (anime.imageUrl != null) {
-                poster.visibility = View.VISIBLE
-                Glide.with(itemView)
-                    .load(anime.imageUrl)
-                    .into(poster)
-            } else {
-                poster.visibility = View.GONE
-            }
+            poster.visibility = View.VISIBLE
+
+            Glide.with(itemView)
+                .load(anime.imageUrl)
+                .placeholder(R.drawable.anime_loading) // while loading
+                .error(R.drawable.anime_loading)       // if failed
+                .centerCrop()
+                .into(poster)
         }
+
     }
 }
